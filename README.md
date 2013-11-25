@@ -15,7 +15,7 @@ Laravel-Single-Table-Inheritance is a package that offer a model to handle singl
 
 ##Installation with Composer
 
-To install the package with Composer, add this line to your composer.json file in the `require field:
+To install Laravel-Single-Table-Inheritance with Composer, add this line to your composer.json file in the `require field:
 
 ```json
 "jacopo/laravel-single-table-inheritance": "dev-master"
