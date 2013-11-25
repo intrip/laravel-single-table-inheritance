@@ -20,15 +20,6 @@ To install Laravel-Single-Table-Inheritance with Composer, add this line to your
 ```json
 "jacopo/laravel-single-table-inheritance": "dev-master"
 ```
-
-Then open `app/config/app.php` and add the following line in the `providers` array:
-
-```php
-'providers' => array(
-    'Jacopo\LaravelSingleTableInheritance\LaravelSingleTableInheritanceServiceProvider',
-)
-```
-
 Congratulations! You succesfully installed the package.
 
 ##Usage
