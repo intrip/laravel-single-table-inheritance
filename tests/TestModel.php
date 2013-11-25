@@ -27,7 +27,7 @@ class TestModel extends \PHPUnit_Framework_TestCase
 		$this->assertInstanceOf('SingleModelStub', $this->model);
 	}
 
-	public function testNewQueryNoDeleteYesMyAttributes()
+	public function testNewQueryNoSoftDeletes()
 	{
 		$conn = m::mock('Illuminate\Database\Connection');
 		$grammar = m::mock('Illuminate\Database\Query\Grammars\Grammar');
@@ -36,7 +36,7 @@ class TestModel extends \PHPUnit_Framework_TestCase
 		$conn->shouldReceive('getPostProcessor')->once()->andReturn($processor);
 		SingleModelStub::setConnectionResolver($resolver = m::mock('Illuminate\Database\ConnectionResolverInterface'));
 		$resolver->shouldReceive('connection')->andReturn($conn);
-		$builder = $this->model->newQuery(false, true);
+		$builder = $this->model->newQuery(false);
 		$this->assertInstanceOf('Illuminate\Database\Eloquent\Builder', $builder);
 		$wheres = $builder->getQuery()->wheres;
 		$expected_where = array(
@@ -50,7 +50,7 @@ class TestModel extends \PHPUnit_Framework_TestCase
 		$this->assertEquals($expected_where,$wheres[0]);
 	}
 
-	public function testNewQueryYesDeleteYesMyAttributes()
+	public function testNewQuerySoftDeletes()
 	{
 		$conn = m::mock('Illuminate\Database\Connection');
 		$grammar = m::mock('Illuminate\Database\Query\Grammars\Grammar');
@@ -59,7 +59,7 @@ class TestModel extends \PHPUnit_Framework_TestCase
 		$conn->shouldReceive('getPostProcessor')->once()->andReturn($processor);
 		SingleModelStub::setConnectionResolver($resolver = m::mock('Illuminate\Database\ConnectionResolverInterface'));
 		$resolver->shouldReceive('connection')->andReturn($conn);
-		$builder = $this->model->newQuery(true, true);
+		$builder = $this->model->newQuery(true);
 		$this->assertInstanceOf('Illuminate\Database\Eloquent\Builder', $builder);
 		$wheres = $builder->getQuery()->wheres;
 		$expected_where = array(
@@ -77,43 +77,6 @@ class TestModel extends \PHPUnit_Framework_TestCase
 			);
 		
 		$this->assertEquals($expected_where,$wheres[0]);
-	}
-
-	public function testNewQueryYesDeleteNoMyAttributes()
-	{
-		$conn = m::mock('Illuminate\Database\Connection');
-		$grammar = m::mock('Illuminate\Database\Query\Grammars\Grammar');
-		$processor = m::mock('Illuminate\Database\Query\Processors\Processor');
-		$conn->shouldReceive('getQueryGrammar')->once()->andReturn($grammar);
-		$conn->shouldReceive('getPostProcessor')->once()->andReturn($processor);
-		SingleModelStub::setConnectionResolver($resolver = m::mock('Illuminate\Database\ConnectionResolverInterface'));
-		$resolver->shouldReceive('connection')->andReturn($conn);
-		$builder = $this->model->newQuery(true, false);
-		$this->assertInstanceOf('Illuminate\Database\Eloquent\Builder', $builder);
-		$wheres = $builder->getQuery()->wheres;
-		$expected_where = array(
-				"type"=> "Null",
-				"column" => "stub.deleted_at",
-				"boolean" => "and"
-			);
-		
-		$this->assertEquals($expected_where,$wheres[0]);
-	}
-
-	public function testNewQueryNoDeleteNoMyAttributes()
-	{
-		$conn = m::mock('Illuminate\Database\Connection');
-		$grammar = m::mock('Illuminate\Database\Query\Grammars\Grammar');
-		$processor = m::mock('Illuminate\Database\Query\Processors\Processor');
-		$conn->shouldReceive('getQueryGrammar')->once()->andReturn($grammar);
-		$conn->shouldReceive('getPostProcessor')->once()->andReturn($processor);
-		SingleModelStub::setConnectionResolver($resolver = m::mock('Illuminate\Database\ConnectionResolverInterface'));
-		$resolver->shouldReceive('connection')->andReturn($conn);
-		$builder = $this->model->newQuery(false, false);
-		$this->assertInstanceOf('Illuminate\Database\Eloquent\Builder', $builder);
-		$wheres = $builder->getQuery()->wheres;
-	
-		$this->assertNull($wheres[0]);
 	}
 
 	/**

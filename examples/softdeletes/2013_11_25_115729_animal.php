@@ -19,8 +19,10 @@ class Animal extends Migration {
 			$table->string('toy');
 			$table->string('collar')->nullable();
 			$table->string('bedding')->nullable();
+			// field that contain the type of the data saved
 			$table->string('type');
 			$table->timestamps();
+			// we use softdeletes here and in the models
 			$table->softDeletes();
 		});
 	}

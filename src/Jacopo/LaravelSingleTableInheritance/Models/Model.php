@@ -7,7 +7,7 @@
  * Weakness of this implementation:
  * 	- As new objects are introduced you must change the table attributes
  * 	- There is not metadata to define which attribute belongs to wich subtype
- * 	- You cant set any good safe defaults: all to null
+ * 	- You cant set any good safe defaults: all to null o empty strings
  *
  * Works well when you have few subtypes and few specific attributes
  *
@@ -73,39 +73,13 @@ class Model extends Eloquent
 	 * @param  bool  $excludeDeleted
 	 * @return \Illuminate\Database\Eloquent\Builder|static
 	 */
-	public function newQuery($excludeDeleted = true, $getOnlyMyType = true)
+	public function newQuery($excludeDeleted = true)
   	{
 	    $builder = parent::newQuery($excludeDeleted);
-
-	    if ($getOnlyMyType)
-	    {
-	      $builder->where(static::$table_type_field,'=', $this->table_type);
-	    }
+	    $builder->where(static::$table_type_field,'=', $this->table_type);
 
 	    return $builder;
   	}
-
-  	/**
-	 * Get a new query builder that includes all type of data.
-	 *
-	 * @param  $excludeDeleted exclude deleted data with soft deletes
-	 * @return \Illuminate\Database\Eloquent\Builder|static
-	 */
-	public static function withAllTypes($excludeDeleted = true)
-	{
-		return with(new static)->newQueryWithAllTypes($excludeDeleted);
-	}
-
-	/**
-	 * Get a new query builder that includes all type of data.
-	 *
-	 * @param  $excludeDeleted exclude deleted data with soft deletes
-	 * @return \Illuminate\Database\Eloquent\Builder|static
-	 */
-	public function newQueryWithAllTypes($excludeDeleted = true)
-	{
-		return $this->newQuery($excludeDeleted,false);
-	}
 
   	/**
   	 * Protect table_type_field from being changed.
