@@ -2,8 +2,8 @@
 
 In this examples we have cat and dogs, both are animals. The structure is the following:
 
-Animals->Cat
-Animals->Dog
+- Animals->Cat
+- Animals->Dog
 
 Every animal have the following attributes: "id", "name" (Animal.php).
 Cat inherit from Animal and also have the attribute: "food"  (Cat.php).
