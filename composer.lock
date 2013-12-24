@@ -3,21 +3,21 @@
         "This file locks the dependencies of your project to a known state",
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file"
     ],
-    "hash": "286b9569194eb5f56dee944928c60d17",
+    "hash": "dc0f21dea7068788dd1b35bf1b1fa64e",
     "packages": [
         {
             "name": "illuminate/support",
-            "version": "4.0.x-dev",
+            "version": "dev-master",
             "target-dir": "Illuminate/Support",
             "source": {
                 "type": "git",
                 "url": "https://github.com/illuminate/support.git",
-                "reference": "24ac5601b3f6781c8b54a12ed5e4ddb7f34d7953"
+                "reference": "5625c8d61171f57da3495d2163370b03c0cfa94a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/illuminate/support/zipball/24ac5601b3f6781c8b54a12ed5e4ddb7f34d7953",
-                "reference": "24ac5601b3f6781c8b54a12ed5e4ddb7f34d7953",
+                "url": "https://api.github.com/repos/illuminate/support/zipball/5625c8d61171f57da3495d2163370b03c0cfa94a",
+                "reference": "5625c8d61171f57da3495d2163370b03c0cfa94a",
                 "shasum": ""
             },
             "require": {
@@ -31,7 +31,7 @@
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "4.0-dev"
+                    "dev-master": "4.1-dev"
                 }
             },
             "autoload": {
@@ -54,23 +54,23 @@
                     "role": "Developer"
                 }
             ],
-            "time": "2013-11-20 14:44:26"
+            "time": "2013-12-12 13:21:25"
         }
     ],
     "packages-dev": [
         {
             "name": "illuminate/container",
-            "version": "4.0.x-dev",
+            "version": "dev-master",
             "target-dir": "Illuminate/Container",
             "source": {
                 "type": "git",
                 "url": "https://github.com/illuminate/container.git",
-                "reference": "d8be813ca31124d5484365ea0d567411c1555e0c"
+                "reference": "3dbf7e631204e14230a61cf56a4b21733f76e6bf"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/illuminate/container/zipball/d8be813ca31124d5484365ea0d567411c1555e0c",
-                "reference": "d8be813ca31124d5484365ea0d567411c1555e0c",
+                "url": "https://api.github.com/repos/illuminate/container/zipball/3dbf7e631204e14230a61cf56a4b21733f76e6bf",
+                "reference": "3dbf7e631204e14230a61cf56a4b21733f76e6bf",
                 "shasum": ""
             },
             "require": {
@@ -82,7 +82,7 @@
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "4.0-dev"
+                    "dev-master": "4.1-dev"
                 }
             },
             "autoload": {
@@ -102,43 +102,43 @@
                     "role": "Developer"
                 }
             ],
-            "time": "2013-10-31 16:05:50"
+            "time": "2013-11-27 15:06:54"
         },
         {
             "name": "illuminate/database",
-            "version": "4.0.x-dev",
+            "version": "4.1.x-dev",
             "target-dir": "Illuminate/Database",
             "source": {
                 "type": "git",
                 "url": "https://github.com/illuminate/database.git",
-                "reference": "55f81747d3452f7ad562b66c60c8beabfeb4637c"
+                "reference": "1bd5801ac5720fcba47c12bd0cf1adebff828cca"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/illuminate/database/zipball/55f81747d3452f7ad562b66c60c8beabfeb4637c",
-                "reference": "55f81747d3452f7ad562b66c60c8beabfeb4637c",
+                "url": "https://api.github.com/repos/illuminate/database/zipball/1bd5801ac5720fcba47c12bd0cf1adebff828cca",
+                "reference": "1bd5801ac5720fcba47c12bd0cf1adebff828cca",
                 "shasum": ""
             },
             "require": {
-                "illuminate/container": "4.0.x",
-                "illuminate/events": "4.0.x",
-                "illuminate/support": "4.0.x",
+                "illuminate/container": "4.1.x",
+                "illuminate/events": "4.1.x",
+                "illuminate/support": "4.1.x",
                 "nesbot/carbon": "1.*",
                 "php": ">=5.3.0"
             },
             "require-dev": {
-                "illuminate/cache": "4.0.x",
-                "illuminate/console": "4.0.x",
-                "illuminate/filesystem": "4.0.x",
-                "illuminate/pagination": "4.0.x",
-                "illuminate/support": "4.0.x",
+                "illuminate/cache": "4.1.x",
+                "illuminate/console": "4.1.x",
+                "illuminate/filesystem": "4.1.x",
+                "illuminate/pagination": "4.1.x",
+                "illuminate/support": "4.1.x",
                 "mockery/mockery": "0.7.2",
                 "phpunit/phpunit": "3.7.*"
             },
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "4.0-dev"
+                    "dev-master": "4.1-dev"
                 }
             },
             "autoload": {
@@ -164,26 +164,26 @@
                 "orm",
                 "sql"
             ],
-            "time": "2013-11-14 21:56:34"
+            "time": "2013-12-11 18:57:56"
         },
         {
             "name": "illuminate/events",
-            "version": "4.0.x-dev",
+            "version": "4.1.x-dev",
             "target-dir": "Illuminate/Events",
             "source": {
                 "type": "git",
                 "url": "https://github.com/illuminate/events.git",
-                "reference": "2253c8c3a8a186a15c0a78a9dbffb6defbb47e69"
+                "reference": "7a658e96e9631c4ae541a205563984a80af7dc01"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/illuminate/events/zipball/2253c8c3a8a186a15c0a78a9dbffb6defbb47e69",
-                "reference": "2253c8c3a8a186a15c0a78a9dbffb6defbb47e69",
+                "url": "https://api.github.com/repos/illuminate/events/zipball/7a658e96e9631c4ae541a205563984a80af7dc01",
+                "reference": "7a658e96e9631c4ae541a205563984a80af7dc01",
                 "shasum": ""
             },
             "require": {
-                "illuminate/container": "4.0.x",
-                "illuminate/support": "4.0.x",
+                "illuminate/container": "4.1.x",
+                "illuminate/support": "4.1.x",
                 "php": ">=5.3.0"
             },
             "require-dev": {
@@ -193,7 +193,7 @@
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "4.0-dev"
+                    "dev-master": "4.1-dev"
                 }
             },
             "autoload": {
@@ -213,7 +213,7 @@
                     "role": "Developer"
                 }
             ],
-            "time": "2013-10-02 14:15:14"
+            "time": "2013-10-29 12:20:27"
         },
         {
             "name": "mockery/mockery",
@@ -221,12 +221,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/padraic/mockery.git",
-                "reference": "23ca1a274fb8fd175101574ac81cd1b82f3d0489"
+                "reference": "121389af4cebe21c529a21b9d341f3fe198326e8"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/padraic/mockery/zipball/23ca1a274fb8fd175101574ac81cd1b82f3d0489",
-                "reference": "23ca1a274fb8fd175101574ac81cd1b82f3d0489",
+                "url": "https://api.github.com/repos/padraic/mockery/zipball/121389af4cebe21c529a21b9d341f3fe198326e8",
+                "reference": "121389af4cebe21c529a21b9d341f3fe198326e8",
                 "shasum": ""
             },
             "require": {
@@ -267,20 +267,20 @@
                 "test double",
                 "testing"
             ],
-            "time": "2013-11-12 11:09:16"
+            "time": "2013-12-20 15:53:19"
         },
         {
             "name": "nesbot/carbon",
-            "version": "1.6.0",
+            "version": "1.7.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/briannesbitt/Carbon.git",
-                "reference": "b0450b539d1567b2acee6467b6b323a8547b5559"
+                "reference": "03ede52a1f360441b5826cb8a798e0d0a919731f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/briannesbitt/Carbon/zipball/b0450b539d1567b2acee6467b6b323a8547b5559",
-                "reference": "b0450b539d1567b2acee6467b6b323a8547b5559",
+                "url": "https://api.github.com/repos/briannesbitt/Carbon/zipball/03ede52a1f360441b5826cb8a798e0d0a919731f",
+                "reference": "03ede52a1f360441b5826cb8a798e0d0a919731f",
                 "shasum": ""
             },
             "require": {
@@ -313,7 +313,7 @@
                 "datetime",
                 "time"
             ],
-            "time": "2013-11-23 15:22:05"
+            "time": "2013-12-05 04:13:29"
         }
     ],
     "aliases": [
