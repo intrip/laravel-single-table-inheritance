@@ -18,7 +18,7 @@ class Animal extends Model
 	 * The list of attributes that belongs to the class
 	 * @var array
 	 */
-	protected $my_attributes = array("id", "name");
+	protected static $my_attributes = array("id", "name");
 	/**
 	 * Standard eloquent softDelete attribute
 	 * @var boolean
