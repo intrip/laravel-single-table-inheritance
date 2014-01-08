@@ -10,5 +10,5 @@ class Dog extends Animal
 	 * Dog has also "collar" attribute
 	 * @var array
 	 */
-	protected $my_attributes = array("collar");
+	protected static $my_attributes = array("collar");
 }
