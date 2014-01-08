@@ -11,5 +11,5 @@ class Cat extends Animal
 	 * Cat has also the attribute: "food"
 	 * @var array
 	 */
-	protected $my_attributes = array("food");
+	protected static $my_attributes = array("food");
 }
