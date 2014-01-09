@@ -5,6 +5,11 @@ use Jacopo\LaravelSingleTableInheritance\Models\Model;
 class Animal extends Model
 {
 	/**
+	 * the table name
+	 * @var string
+	 */
+	protected $table = 'animal';
+	/**
 	 * The name to save in the type field
 	 * @var string
 	 */
