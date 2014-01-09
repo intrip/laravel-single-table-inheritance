@@ -3,6 +3,11 @@
 class Cat extends Animal
 {
 	/**
+	 * the table name
+	 * @var string
+	 */
+	protected $table = 'animal';
+	/**
 	 * Here the table type is Cat
 	 * @var string
 	 */
