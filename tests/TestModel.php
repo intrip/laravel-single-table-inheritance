@@ -149,6 +149,15 @@ class TestModel extends \PHPUnit_Framework_TestCase
 		$this->assertEquals(null, $this->model->created_at);
 	}
 
+    /**
+     * @test
+     **/
+    public function itCanSetAndGetRelationsAttributes()
+    {
+        $this->model->relation;
+        //@todo fix test e refactor se vuoi e poi adda tag
+    }
+
 }
 
 class SingleModelStub extends  Model
@@ -165,4 +174,12 @@ class SingleModelStub extends  Model
 
 	protected $my_attributes = array("working");
 
+    public function relation()
+    {
+        return $this->hasMany('RelationModelStub');
+    }
+
 }
+
+class RelationModelStub extends Model
+{}
