@@ -12,11 +12,11 @@
     ],
     "require": {
         "php": ">=5.3.0",
-        "illuminate/support": "4.0.x"
+        "illuminate/support": "~4"
     },
     "require-dev": {
         "mockery/mockery": "dev-master@dev",
-        "illuminate/database": "4.0.x"
+        "illuminate/database": "~4"
     },
     "autoload": {
         "classmap": [

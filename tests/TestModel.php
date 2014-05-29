@@ -14,7 +14,7 @@ class TestModel extends \PHPUnit_Framework_TestCase
 
 	public function setUp()
 	{
-		$this->model = new SingleModelStub();
+		$this->model = new SingleModelRootStub();
 	}
 
 	public function tearDown()
@@ -24,19 +24,19 @@ class TestModel extends \PHPUnit_Framework_TestCase
 
 	public function testCanCreateModel()
 	{
-		$this->assertInstanceOf('SingleModelStub', $this->model);
+		$this->assertInstanceOf('SingleModelRootStub', $this->model);
 	}
 
-	public function testNewQueryNoDeleteYesMyAttributes()
+	public function testNewQueryNoSoftDeletes()
 	{
 		$conn = m::mock('Illuminate\Database\Connection');
 		$grammar = m::mock('Illuminate\Database\Query\Grammars\Grammar');
 		$processor = m::mock('Illuminate\Database\Query\Processors\Processor');
 		$conn->shouldReceive('getQueryGrammar')->once()->andReturn($grammar);
 		$conn->shouldReceive('getPostProcessor')->once()->andReturn($processor);
-		SingleModelStub::setConnectionResolver($resolver = m::mock('Illuminate\Database\ConnectionResolverInterface'));
+		SingleModelRootStub::setConnectionResolver($resolver = m::mock('Illuminate\Database\ConnectionResolverInterface'));
 		$resolver->shouldReceive('connection')->andReturn($conn);
-		$builder = $this->model->newQuery(false, true);
+		$builder = $this->model->newQuery(false);
 		$this->assertInstanceOf('Illuminate\Database\Eloquent\Builder', $builder);
 		$wheres = $builder->getQuery()->wheres;
 		$expected_where = array(
@@ -50,16 +50,16 @@ class TestModel extends \PHPUnit_Framework_TestCase
 		$this->assertEquals($expected_where,$wheres[0]);
 	}
 
-	public function testNewQueryYesDeleteYesMyAttributes()
+	public function testNewQuerySoftDeletes()
 	{
 		$conn = m::mock('Illuminate\Database\Connection');
 		$grammar = m::mock('Illuminate\Database\Query\Grammars\Grammar');
 		$processor = m::mock('Illuminate\Database\Query\Processors\Processor');
 		$conn->shouldReceive('getQueryGrammar')->once()->andReturn($grammar);
 		$conn->shouldReceive('getPostProcessor')->once()->andReturn($processor);
-		SingleModelStub::setConnectionResolver($resolver = m::mock('Illuminate\Database\ConnectionResolverInterface'));
+		SingleModelRootStub::setConnectionResolver($resolver = m::mock('Illuminate\Database\ConnectionResolverInterface'));
 		$resolver->shouldReceive('connection')->andReturn($conn);
-		$builder = $this->model->newQuery(true, true);
+		$builder = $this->model->newQuery(true);
 		$this->assertInstanceOf('Illuminate\Database\Eloquent\Builder', $builder);
 		$wheres = $builder->getQuery()->wheres;
 		$expected_where = array(
@@ -79,43 +79,6 @@ class TestModel extends \PHPUnit_Framework_TestCase
 		$this->assertEquals($expected_where,$wheres[0]);
 	}
 
-	public function testNewQueryYesDeleteNoMyAttributes()
-	{
-		$conn = m::mock('Illuminate\Database\Connection');
-		$grammar = m::mock('Illuminate\Database\Query\Grammars\Grammar');
-		$processor = m::mock('Illuminate\Database\Query\Processors\Processor');
-		$conn->shouldReceive('getQueryGrammar')->once()->andReturn($grammar);
-		$conn->shouldReceive('getPostProcessor')->once()->andReturn($processor);
-		SingleModelStub::setConnectionResolver($resolver = m::mock('Illuminate\Database\ConnectionResolverInterface'));
-		$resolver->shouldReceive('connection')->andReturn($conn);
-		$builder = $this->model->newQuery(true, false);
-		$this->assertInstanceOf('Illuminate\Database\Eloquent\Builder', $builder);
-		$wheres = $builder->getQuery()->wheres;
-		$expected_where = array(
-				"type"=> "Null",
-				"column" => "stub.deleted_at",
-				"boolean" => "and"
-			);
-		
-		$this->assertEquals($expected_where,$wheres[0]);
-	}
-
-	public function testNewQueryNoDeleteNoMyAttributes()
-	{
-		$conn = m::mock('Illuminate\Database\Connection');
-		$grammar = m::mock('Illuminate\Database\Query\Grammars\Grammar');
-		$processor = m::mock('Illuminate\Database\Query\Processors\Processor');
-		$conn->shouldReceive('getQueryGrammar')->once()->andReturn($grammar);
-		$conn->shouldReceive('getPostProcessor')->once()->andReturn($processor);
-		SingleModelStub::setConnectionResolver($resolver = m::mock('Illuminate\Database\ConnectionResolverInterface'));
-		$resolver->shouldReceive('connection')->andReturn($conn);
-		$builder = $this->model->newQuery(false, false);
-		$this->assertInstanceOf('Illuminate\Database\Eloquent\Builder', $builder);
-		$wheres = $builder->getQuery()->wheres;
-	
-		$this->assertNull($wheres[0]);
-	}
-
 	/**
 	 * @expectedException Jacopo\LaravelSingleTableInheritance\Exceptions\InvalidAttributeException
 	 */
@@ -131,22 +94,48 @@ class TestModel extends \PHPUnit_Framework_TestCase
 	{
 		$this->model->not_working;
 	}
-
+	/**
+	 * @group second
+	 */
 	public function testGetSetAttributeWorks()
 	{
 		$this->model->working = "works";
 		$this->assertEquals("works", $this->model->working);
 
-		$model = new SingleModelStub(array(
+		$model = new SingleModelRootStub(array(
 				"working"=>"works",
 			));
 		$this->assertEquals("works", $model->working);
+
+		$model_child = new SingleModelChildStub(array(
+				"working"=>"works",
+				"working_child" => "works child",
+			));
+		$this->assertEquals("works", $model_child->working);
+		$this->assertEquals("works child", $model_child->working_child);
 	}
 
 	public function testGetAttributesWorksWithEloquentAttributes()
 	{
 		$this->model->created_at = null;
 		$this->assertEquals(null, $this->model->created_at);
+
+		$model_child = new SingleModelChildStub;
+		$model_child->created_at = null;
+		$this->assertNull($model_child->created_at);
+	}
+
+	public function testIsRootCatRoot()
+	{
+		$is_root = $this->model->isRootCat();
+		$this->assertTrue($is_root);
+	}
+
+	public function testIsRootCatNotRoot()
+	{
+		$model = new SingleModelChildStub;
+		$is_root = $model->isRootCat();
+		$this->assertFalse($is_root);
 	}
 
     /**
@@ -160,7 +149,7 @@ class TestModel extends \PHPUnit_Framework_TestCase
 
 }
 
-class SingleModelStub extends  Model
+class SingleModelRootStub extends  Model
 {
 	protected $table = 'stub';
 
@@ -172,7 +161,23 @@ class SingleModelStub extends  Model
 
 	protected static $unguarded = true;
 
-	protected $my_attributes = array("working");
+	protected static $my_attributes = array("working");
+
+}
+
+class SingleModelChildStub extends SingleModelRootStub
+{
+	protected $table = 'stub';
+
+	protected $table_type = "single_model_child";
+
+	protected static $table_type_field = "type";
+
+	protected $softDelete = true;
+
+	protected static $unguarded = true;
+
+	protected static $my_attributes = array("working_child");
 
     public function relation()
     {
