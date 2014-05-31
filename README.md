@@ -1,19 +1,19 @@
 #Laravel-Single-Table-Inheritance
 
-Mapping domain model into relational database is hard.For this reason there are many ways to do that. Single talble inheritance is one of them. the stengths of this approach are:
+Mapping domain model into relational database is hard.For this reason there are many ways to do that. Single table inheritance is one of them. the stengths of this approach are:
  - Is simple
  - Moving column between hierarchy doesnt require db changes
 But there are some weakness in that approach:
- - There is no metadata to define which attribute belongs to wich subtype: looking table directly is a bit weird
+ - There is no metadata to define which attribute belongs to which subtype: looking table directly is a bit weird
  - The table will quiclky become a bottleneck if you create many hierarchies
- - You waste some space with empty columns(depending on dmbs compression of nulls)
+ - You waste some space with empty columns(depending on dbms compression of nulls)
 
 Laravel-Single-Table-Inheritance is a package that offer a simple and basic model to handle single table inheritance with eloquent ORM. Be aware this pattern come from Martin Fowler(Patterns of Enterprise Application Architecture). 
 For more information follow this link: <a href="http://martinfowler.com/eaaCatalog/index.html" target="_blank">Single Table Inheritance</a>. 
 Also check my post about <a href="http://www.jacopobeschi.com/post/php-table-inheritance" target="_blank">Single table inheritance</a>.
 
 - **Author**: Jacopo Beschi
-- **Version**: 0.1.0
+- **Version**: 1.0.0
 
 [![Build Status](https://travis-ci.org/intrip/laravel-single-table-inheritance.png)](https://travis-ci.org/intrip/laravel-single-table-inheritance)
 
@@ -28,7 +28,7 @@ Also check my post about <a href="http://www.jacopobeschi.com/post/php-table-inh
 To install Laravel-Single-Table-Inheritance with Composer, add this line to your composer.json file in the `require field:
 
 ```json
-"jacopo/laravel-single-table-inheritance": "dev-master"
+"jacopo/laravel-single-table-inheritance": "1.0.0"
 ```
 Congratulations! You succesfully installed the package.
 
