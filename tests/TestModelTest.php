@@ -140,13 +140,21 @@ class TestModel extends \PHPUnit_Framework_TestCase
 
     /**
      * @test
+     * @group relation
      **/
     public function itCanSetAndGetRelationsAttributes()
     {
-        $this->model->relation;
-        //@todo fix test e refactor se vuoi e poi adda tag
+        $this->model->valid_relation;
     }
-
+    
+    /**
+     * @test
+     * @expectedException Jacopo\LaravelSingleTableInheritance\Exceptions\InvalidAttributeException
+     **/
+    public function itCheckForWrongRelationsAttributes()
+    {
+        $this->model->fake_relation;
+    }
 }
 
 class SingleModelRootStub extends  Model
@@ -162,6 +170,24 @@ class SingleModelRootStub extends  Model
 	protected static $unguarded = true;
 
 	protected static $my_attributes = array("working");
+
+    public function valid_relation()
+    {
+        return $this->mockRelationGetResults();
+    }
+
+    /**
+     * @return m\MockInterface
+     */
+    private function mockRelationGetResults()
+    {
+        return m::mock('Illuminate\Database\Eloquent\Relations\HasMany')->shouldReceive('getResults')->getMock();
+    }
+
+    public function fake_relation()
+    {
+        return '';
+    }
 
 }
 
@@ -179,12 +205,4 @@ class SingleModelChildStub extends SingleModelRootStub
 
 	protected static $my_attributes = array("working_child");
 
-    public function relation()
-    {
-        return $this->hasMany('RelationModelStub');
-    }
-
 }
-
-class RelationModelStub extends Model
-{}

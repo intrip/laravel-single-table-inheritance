@@ -1,20 +1,20 @@
 <?php namespace Jacopo\LaravelSingleTableInheritance\Models;
 /**
  * Eloquent Model for Single table inheritance
- * this design comes from Martin fowler(Pattern of enterprise application arhcitecture), this is just and implementation with Eloquent (laravel ORM)
+ * this design comes from Martin fowler(Pattern of enterprise application architecture), this is just and implementation with Eloquent (laravel ORM)
  *
  * Strenghts of this implementation: 
  * 	- Is simple
- * 	- Moving column between hierarchy doesnt require db changes
+ * 	- Moving column between hierarchy doesn't require database changes
  * 
  * Weakness of this implementation:
- * 	- There is no metadata to define which attribute belongs to wich subtype: looking table diretly is a bit weird
+ * 	- There is no metadata to define which attribute belongs to which subtype: looking table directly is a bit weird
  * 	- The table will quiclky become a bottleneck if you create many hierarchies
- * 	- You waste some space with empty columns(depending on dmbs compression of nulls)
+ * 	- You waste some space with empty columns(depending on dbms compression of null values)
  *
  * Works well when you have few subtypes and few specific attributes and with active record implementation (Eloquent)
  *
- * @author  Jacopo Beschi beschi.jacopo@gmail.com
+ * @author  Jacopo Beschi jacopoo@jacopobeschi.com
  */
 
 use Illuminate\Database\Eloquent\Builder;
@@ -53,7 +53,7 @@ abstract class Model extends Eloquent
 	{
 		$this->prepareTableTypeField();
 		$this->prepareEloquentAttributes();
-		$this->setupAllAttributes();
+		$this->prepareAllAttributes();
 		
 		return parent::__construct( $attributes );
 	}
@@ -62,7 +62,7 @@ abstract class Model extends Eloquent
 	 * Fill the array containing all the attributes that belongs to the class
 	 * @return void
 	 */
-	protected function setupAllAttributes()
+	protected function prepareAllAttributes()
 	{
 		static::$all_attributes = static::$my_attributes;
 		$parent = get_class($this);
@@ -73,7 +73,7 @@ abstract class Model extends Eloquent
 	}
 
 	/**
-	 * Check if the category is at top of inheritance tree
+	 * Check if the category is at top of the inheritance tree
 	 * @return boolean 
 	 */
 	public function isRootCat()
@@ -97,6 +97,26 @@ abstract class Model extends Eloquent
 
 		static::$eloquent_attributes = array($deleted_at, $created_at, $updated_at);
 	}
+
+    /**
+     * Validate if a given key is a relation of the model (available as collection)
+     *
+     * @param $key
+     * @return bool
+     */
+    protected function checkForRelationsAttributes($key)
+    {
+        try
+        {
+            $key = $this->$key();
+        }
+        catch(\BadMethodCallException $e)
+        {
+            return false;
+        }
+
+        return is_subclass_of($key, 'Illuminate\Database\Eloquent\Relations\Relation');
+    }
 
 	/**
 	 * Update newQuery to fetch data of the right type
@@ -134,7 +154,7 @@ abstract class Model extends Eloquent
   	 *
   	 * @param  String $key
   	 * @return mixed
-  	 * @throws  Jacopo\LaravelTableInheritance\Exceptions\InvalidAttributeException
+  	 * @throws  \Jacopo\LaravelTableInheritance\Exceptions\InvalidAttributeException
   	 */
   	public function getAttribute($key)
   	{
@@ -152,9 +172,31 @@ abstract class Model extends Eloquent
   	 */
   	protected function isInAllAttributes($key)
   	{
-  		$valid_attributes = array_merge(static::$all_attributes, static::$eloquent_attributes);
-        return in_array($key, $valid_attributes);
+  		$valid_attributes = array_merge($this->getAllAttributes(), $this->getEloquentAttributes());
+        return in_array($key, $valid_attributes) || $this->checkForRelationsAttributes($key);
   	}
+
+    /**
+     * Lazy loading all_attributes
+     * @return array
+     */
+    protected function getAllAttributes()
+    {
+        if( empty(static::$all_attributes)) $this->prepareAllAttributes();
+
+        return static::$all_attributes;
+    }
+
+    /**
+     * Lazy loading eloquent_attributes
+     * @return array
+     */
+    protected function getEloquentAttributes()
+    {
+        if( empty(static::$eloquent_attributes)) $this->prepareEloquentAttributes();
+
+        return static::$eloquent_attributes;
+    }
 
 	protected function getTableType()
 	{
