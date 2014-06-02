@@ -2,7 +2,7 @@
 
 Mapping domain model into relational database is hard.For this reason there are many ways to do that. Single table inheritance is one of them. the stengths of this approach are:
  - Is simple
- - Moving column between hierarchy doesnt require db changes
+ - Moving column between hierarchy doesn't require db changes
 But there are some weakness in that approach:
  - There is no metadata to define which attribute belongs to which subtype: looking table directly is a bit weird
  - The table will quiclky become a bottleneck if you create many hierarchies

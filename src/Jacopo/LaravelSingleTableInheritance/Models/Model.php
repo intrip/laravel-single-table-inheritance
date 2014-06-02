@@ -23,7 +23,7 @@ use Jacopo\LaravelSingleTableInheritance\Exceptions\InvalidAttributeException;
 
 abstract class Model extends Eloquent
 {
-	/**
+    /**
 	 * The table type to save in $table_type_field
 	 * @var String
 	 */
@@ -48,7 +48,8 @@ abstract class Model extends Eloquent
 	 * @var array
 	 */
 	protected static $eloquent_attributes = array();
-	
+    protected $eloquent_relation_class = 'Illuminate\Database\Eloquent\Relations\Relation';
+
 	public function __construct( array $attributes = array() )
 	{
 		$this->prepareTableTypeField();
@@ -115,7 +116,7 @@ abstract class Model extends Eloquent
             return false;
         }
 
-        return is_subclass_of($key, 'Illuminate\Database\Eloquent\Relations\Relation');
+        return is_subclass_of($key, $this->eloquent_relation_class);
     }
 
 	/**

@@ -22,11 +22,6 @@ class TestModel extends \PHPUnit_Framework_TestCase
 		m::close();
 	}
 
-	public function testCanCreateModel()
-	{
-		$this->assertInstanceOf('SingleModelRootStub', $this->model);
-	}
-
 	public function testNewQueryNoSoftDeletes()
 	{
 		$conn = m::mock('Illuminate\Database\Connection');
@@ -94,9 +89,7 @@ class TestModel extends \PHPUnit_Framework_TestCase
 	{
 		$this->model->not_working;
 	}
-	/**
-	 * @group second
-	 */
+
 	public function testGetSetAttributeWorks()
 	{
 		$this->model->working = "works";
@@ -140,7 +133,6 @@ class TestModel extends \PHPUnit_Framework_TestCase
 
     /**
      * @test
-     * @group relation
      **/
     public function itCanSetAndGetRelationsAttributes()
     {
