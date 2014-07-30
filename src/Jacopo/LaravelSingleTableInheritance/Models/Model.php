@@ -145,7 +145,7 @@ abstract class Model extends Eloquent
   	public function setAttribute($key, $value)
   	{
   		if( ($key == static::$table_type_field) || ( ! $this->isInAllAttributes($key) ))
-  			throw new InvalidAttributeException;
+  			throw new InvalidAttributeException("The attribute {$key} is non available.");
 
   		return parent::setAttribute($key, $value);
   	}
@@ -160,7 +160,7 @@ abstract class Model extends Eloquent
   	public function getAttribute($key)
   	{
   		if( ! $this->isInAllAttributes($key) )
-  			throw new InvalidAttributeException;
+  			throw new InvalidAttributeException("The attribute {$key} is non available.");
 
   		return parent::getAttribute($key);
   	}
