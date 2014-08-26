@@ -15,14 +15,7 @@ class SingleModelRootStub extends Model{
   protected static $my_attributes = array ("working","id");
 
   public function valid_relation() {
-    return $this->mockRelationGetResults();
-  }
-
-  /**
-   * @return m\MockInterface
-   */
-  private function mockRelationGetResults() {
-    return m::mock('Illuminate\Database\Eloquent\Relations\HasMany')->shouldReceive('getResults')->getMock();
+    return $this->hasMany('Jacopo\LaravelSingleTableInheritance\Tests\Stubs\SingleModelStubRelation');
   }
 
   public function fake_relation() {

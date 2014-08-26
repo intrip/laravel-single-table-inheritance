@@ -1,14 +1,9 @@
 <?php namespace Jacopo\LaravelSingleTableInheritance\Tests;
 
-/**
- * InheritanceSingleTableTest
-
- */
 use Illuminate\Database\Eloquent\SoftDeletingTrait;
 use Jacopo\LaravelSingleTableInheritance\Tests\Stubs\SingleModelChildStub;
 use Jacopo\LaravelSingleTableInheritance\Tests\Stubs\SingleModelRootStub;
 use Jacopo\LaravelSingleTableInheritance\Tests\Stubs\SingleModelRootStubSoftDelete;
-use Mockery as m;
 use Carbon\Carbon;
 
 class TestModel extends TestCase {
@@ -18,13 +13,10 @@ class TestModel extends TestCase {
 
   public function setUp() {
     parent::setUp();
+
     $this->model_root = new SingleModelRootStub();
     $this->model_root_soft_delete = new SingleModelRootStubSoftDelete();
     $this->model_child = new SingleModelChildStub();
-  }
-
-  public function tearDown() {
-    m::close();
   }
 
   /**
@@ -50,67 +42,73 @@ class TestModel extends TestCase {
   }
 
   /**
-   * @expectedException Jacopo\LaravelSingleTableInheritance\Exceptions\InvalidAttributeException
+   * @test
+   * @expectedException \Jacopo\LaravelSingleTableInheritance\Exceptions\InvalidAttributeException
    */
-  public function testSetAttributeThrowsInvalidAttributeException() {
+  public function setAttributeThrowsInvalidAttributeException() {
     $this->model_root->not_working = "error";
   }
 
   /**
-   * @expectedException Jacopo\LaravelSingleTableInheritance\Exceptions\InvalidAttributeException
+   * @test
+   * @expectedException \Jacopo\LaravelSingleTableInheritance\Exceptions\InvalidAttributeException
    */
-  public function testGetAttributeThrowsInvalidAttributeException() {
+  public function getAttributeThrowsInvalidAttributeException() {
     $this->model_root->not_working;
   }
 
-  public function testGetSetAttributeWorks() {
-    //@todo make this test, finish the rest, clean the production code in a better way
-    // setup the new doc, retag repush e fix github issue
-    //    $working_value = "works";
-    //    $working_child_value = "works child";
-    //
-    //    $this->assertEquals($working_value, $this->model->working);
-    //
-    //    $model_child = $this->model_child->create(array (
-    //                                                          "working"       => $working_value,
-    //                                                          "working_child" => $working_child_value,
-    //                                                  ));
-    //    $this->assertEquals($working_value, $model_child->working);
-    //    $this->assertEquals($working_child_value, $model_child->working_child);
+  /**
+   * @test
+   */
+  public function getSetAttributeWorks() {
+    $working_value = "works";
+    $working_child_value = "works child";
+
+    $model_root = $this->model_child->create(array (
+                                                     "working" => $working_value,
+                                             ));
+
+    $this->assertEquals($working_value, $model_root->working);
+
+    $model_child = $this->model_child->create(array (
+                                                      "working"       => $working_value,
+                                                      "working_child" => $working_child_value,
+                                              ));
+    $this->assertEquals($working_value, $model_child->working);
+    $this->assertEquals($working_child_value, $model_child->working_child);
   }
 
-  public function testGetAttributesWorksWithEloquentAttributes() {
-    //		$this->model->created_at = null;
-    //		$this->assertEquals(null, $this->model->created_at);
-    //
-    //		$model_child = new SingleModelChildStub;
-    //		$model_child->created_at = null;
-    //		$this->assertNull($model_child->created_at);
+  /**
+   * @test
+   */
+  public function getAttributesWorksWithEloquentAttributes() {
+    $this->model_root->created_at = null;
+    $this->assertEquals(null, $this->model_root->created_at);
   }
 
-  public function testIsRootCatRoot() {
-    //		$is_root = $this->model->isRootCat();
-    //		$this->assertTrue($is_root);
-  }
+  /**
+   * @test
+   */
+  public function canCheckIfIsRootCatRoot() {
+    $is_root = $this->model_root->isRootCat();
+    $this->assertTrue($is_root);
 
-  public function testIsRootCatNotRoot() {
-    //		$model = new SingleModelChildStub;
-    //		$is_root = $model->isRootCat();
-    //		$this->assertFalse($is_root);
+    $is_root = $this->model_child->isRootCat();
+    $this->assertFalse($is_root);
   }
 
   /**
    * @test
    **/
   public function itCanSetAndGetRelationsAttributes() {
-//    $this->model_root->valid_relation;
+    $this->model_root->valid_relation;
   }
 
   /**
    * @test
-   * @ expectedException Jacopo\LaravelSingleTableInheritance\Exceptions\InvalidAttributeException
+   * @expectedException \Jacopo\LaravelSingleTableInheritance\Exceptions\InvalidAttributeException
    **/
   public function itCheckForWrongRelationsAttributes() {
-    //        $this->model->fake_relation;
+    $this->model_root->fake_relation;
   }
 }

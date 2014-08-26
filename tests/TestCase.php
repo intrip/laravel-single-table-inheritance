@@ -18,10 +18,10 @@ class TestCase extends OrchestraTestCase {
     // create an artisan object for calling migrations
     $artisan = $this->app->make('artisan');
 
-    // proper installation
+    // migrations only for testing purpose
     $artisan->call('migrate', [
             '--database' => 'testbench',
-            '--path'     => '../src/migrations',
+            '--path'     => '../src/migrations/tests',
     ]);
   }
 
