@@ -3,12 +3,12 @@
 /**
  * Eloquent Model for Single table inheritance
  * this design comes from Martin fowler(Pattern of enterprise application architecture), this is just and implementation with Eloquent (laravel ORM)
- * Strenghts of this implementation:
+ * Strengths of this implementation:
  *  - Is simple
  *  - Moving column between hierarchy doesn't require database changes
  * Weakness of this implementation:
  *  - There is no metadata to define which attribute belongs to which subtype: looking table directly is a bit weird
- *  - The table will quiclky become a bottleneck if you create many hierarchies
+ *  - The table will quickly become a bottleneck if you create many hierarchies
  *  - You waste some space with empty columns(depending on dbms compression of null values)
  * Works well when you have few subtypes and few specific attributes and with active record implementation (Eloquent)
  *
