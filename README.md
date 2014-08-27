@@ -19,7 +19,7 @@ Also check my post about <a href="http://www.jacopobeschi.com/post/php-table-inh
 
 ## Requirements
 
-- PHP >= 5.3.7
+- PHP >= 5.4
 - Composer
 - Laravel framework 4.2+ __Note__: if you need to use laravel 4.0.* or 4.1.* please download the version 1.0.1 of the package
 
