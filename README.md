@@ -29,7 +29,7 @@ Also check my post about <a href="http://www.jacopobeschi.com/post/php-table-inh
 To install Laravel-Single-Table-Inheritance with Composer, add this line to your composer.json file in the `require field:
 
 ```json
-"jacopo/laravel-single-table-inheritance": "1.0.*"
+"jacopo/laravel-single-table-inheritance": "1.1.*"
 ```
 Congratulations! You succesfully installed the package.
 
