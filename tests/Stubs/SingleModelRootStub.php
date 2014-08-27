@@ -15,7 +15,7 @@ class SingleModelRootStub extends Model{
   protected static $my_attributes = array ("working","id");
 
   public function valid_relation() {
-    return $this->hasMany('Jacopo\LaravelSingleTableInheritance\Tests\Stubs\SingleModelStubRelation');
+    return $this->hasMany('Jacopo\LaravelSingleTableInheritance\Tests\Stubs\SingleModelRootStubRelation');
   }
 
   public function fake_relation() {

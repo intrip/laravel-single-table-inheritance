@@ -100,7 +100,7 @@ class TestModel extends TestCase {
   /**
    * @test
    **/
-  public function itCanSetAndGetRelationsAttributes() {
+  public function itCanGetRelationsAttributes() {
     $this->model_root->valid_relation;
   }
 

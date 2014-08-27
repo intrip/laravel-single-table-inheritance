@@ -133,7 +133,7 @@ abstract class Model extends Eloquent {
    *
    * @param string $key
    * @param mixed  $value
-   * @throws Jacopo\LaravelTableInheritance\Exceptions\InvalidAttributeException
+   * @throws \Jacopo\LaravelTableInheritance\Exceptions\InvalidAttributeException
    */
   public function setAttribute($key, $value) {
     if (($key == static::$table_type_field) || (!$this->isInAllAttributes($key))) {
