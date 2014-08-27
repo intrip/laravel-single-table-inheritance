@@ -1,6 +1,6 @@
 #Laravel-Single-Table-Inheritance
 
-Mapping domain model into relational database is hard.For this reason there are many ways to do that. Single table inheritance is one of them. the stengths of this approach are:
+Mapping domain model into relational database is hard. For this reason there are many ways to do that. Single table inheritance is one of them. the stengths of this approach are:
  - Is simple
  - Moving column between hierarchy doesn't require db changes
 But there are some weakness in that approach:
@@ -13,7 +13,7 @@ For more information follow this link: <a href="http://martinfowler.com/eaaCatal
 Also check my post about <a href="http://www.jacopobeschi.com/post/php-table-inheritance" target="_blank">Single table inheritance</a>.
 
 - **Author**: Jacopo Beschi
-- **Version**: 1.0.0
+- **Version**: 1.0.2
 
 [![Build Status](https://travis-ci.org/intrip/laravel-single-table-inheritance.png)](https://travis-ci.org/intrip/laravel-single-table-inheritance)
 
@@ -21,15 +21,15 @@ Also check my post about <a href="http://www.jacopobeschi.com/post/php-table-inh
 
 - PHP >= 5.3.7
 - Composer
-- Laravel framework 4.0.* or superior
+- Laravel framework 4.2+ __Note__: if you need to use laravel 4.0.* or 4.1.* please download the version 1.0.1 of the package
+
 
 ##Installation with Composer
 
 To install Laravel-Single-Table-Inheritance with Composer, add this line to your composer.json file in the `require field:
 
-```json
-"jacopo/laravel-single-table-inheritance": "dev-master"
-```
+"jacopo/laravel-single-table-inheritance": "1.1.*"
+
 Congratulations! You succesfully installed the package.
 
 ##Usage
