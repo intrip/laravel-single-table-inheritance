@@ -1,7 +1,5 @@
 #Laravel-Single-Table-Inheritance
 
-## This package is no longer supported: either any bugfix or any new feature will be added. Install at your own risk!
-
 Mapping domain model into relational database is hard. For this reason there are many ways to do that. Single table inheritance is one of them. the stengths of this approach are:
  - Is simple
  - Moving column between hierarchy doesn't require db changes
