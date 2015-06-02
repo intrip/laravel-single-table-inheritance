@@ -8,6 +8,8 @@ But there are some weakness in that approach:
  - The table will quiclky become a bottleneck if you create many hierarchies
  - You waste some space with empty columns(depending on dbms compression of nulls)
 
+## This package is no longer supported: either any bugfix or any new feature will be added. Install at your own risk!
+
 Laravel-Single-Table-Inheritance is a package that offer a simple and basic model to handle single table inheritance with eloquent ORM. Be aware this pattern come from Martin Fowler(Patterns of Enterprise Application Architecture). 
 For more information follow this link: <a href="http://martinfowler.com/eaaCatalog/index.html" target="_blank">Single Table Inheritance</a>. 
 Also check my post about <a href="http://www.jacopobeschi.com/post/php-table-inheritance" target="_blank">Single table inheritance</a>.
